@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Debut</title>
+		<link rel="stylesheet" href="stylesheets/debut.css"/>
+		<script src="javascripts/jquery-1.6.4.js"></script>
+		<script src="javascripts/underscore.js"></script>
+		<script src="javascripts/backbone.js"></script>
+		<script src="javascripts/debut.js"></script>
+
+		<script type="text/template" id="slide-template">
+			<section class="slide">
+				<header>
+					<h2><%= title %></h2>
+				</header>
+				<div class="slide-content">
+					<%= content %>
+				</div>
+			</section>
+		</script>
+
+	</head>
+	<body>
+		<section id="main-container"></section>
+	</body>
+	<script>
+	// initialization
+	$(function () {
+		window.app = new debut.Router();
+		Backbone.history.start({
+			pushState : true//,
+			//root : '/public'
+		});
+		window.app.navigate("/foo", false);
+	});
+	</script>
+</html>
