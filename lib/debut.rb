@@ -6,11 +6,17 @@ module Debut
 	class Application < Sinatra::Base
 
 		get '/' do
-			redirect 'public/index.html'
+			# redirect '/index.html'
+			File.read(File.join('public', 'index.html'))
 		end
 
 		get '/stylesheets/debut.css' do
 			scss :'scss/debut'
+		end
+
+		get '/slides' do
+			content_type 'application/json'
+			File.read(File.join('public', 'slides.json'))
 		end
 
 	end

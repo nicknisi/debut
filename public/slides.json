@@ -1,0 +1,12 @@
+[
+	{
+		"name" : "title-slide",
+		"title" : "Backbone.js",
+		"content" : "<p>Welcome to my simple introduction to backbone.js</p>"
+	},
+	{
+		"name" : "sample-slide",
+		"title" : "Sample Slide 02",
+		"content" : "<p>Hello World!</p>"
+	}
+]
