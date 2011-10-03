@@ -1,0 +1,28 @@
+
+@font-face {
+	font-family: accidental;
+	src: url('fonts/accidental_presidency.ttf');
+}
+
+@font-face {
+	font-family: days;
+	src: url('fonts/days.otf');
+}
+
+* {
+	font-family: accidental;
+}
+
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+header, hgroup, section, article,
+footer, nav, div {
+	display: block;
+	margin: 0;
+	padding: 0;
+}

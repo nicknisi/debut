@@ -1,5 +1,6 @@
 /**
- * Debut, JavaScript Presentation Framework
+ * Debut
+ * JavaScript Presentation Framework
  * Author: Nick Nisi
  * Dependencies:
  *	jQuery
@@ -7,10 +8,10 @@
  *	Backbone
  **/
 
-var debut = (function ($, window, undefined) {
+(function ($, window, undefined) {
 	
 	// Slide Model
-	var Slide = Backbone.Model.extend({
+	window.Slide = Backbone.Model.extend({
 		defaults : {
 			name : 'sample-slide',
 			title : "Sample Title",
@@ -23,7 +24,7 @@ var debut = (function ($, window, undefined) {
 	});
 
 	// Slide View
-	var SlideView = Backbone.View.extend({
+	window.SlideView = Backbone.View.extend({
 		events : {
 			'keypress' : "doKeyPress",
 			'click' : "doKeyPress"
@@ -37,21 +38,36 @@ var debut = (function ($, window, undefined) {
 			$(this.el).html(renderedContent);
 			return this;
 		},
-		doKeyPress : function () {
+		doKeyPress : function (event) {
 			console.log('key pressed');
 		}
 	});
 
-	var SlideCollection = Backbone.Collection.extend({
+	window.SlideCollection = Backbone.Collection.extend({
 		model : Slide,
 		url : '/slides'
 	});
+	
+	window.Player = Backbone.Model.extend({
+		defaults : {
+			index : 0
+		},
+		initialize : function () {
+			this.currSlide = new Slide();
+			this.slides = new SlideCollection();
+			this.slides.fetch();
+		}
+	});
 
-	var Router = Backbone.Router.extend({
+	window.Router = Backbone.Router.extend({
 		routes : {
 			"" : "home",
 			"/foo" : "foo",
 			"/slide/:name" : "slide"
+		},
+		initialize : function () {
+			this.deck = new SlideCollection();
+			this.deck.fetch();
 		},
 		home : function () {
 			this.navigate('/slide/0', true);
@@ -60,24 +76,15 @@ var debut = (function ($, window, undefined) {
 			console.log("You got to foo!");
 		},
 		slide : function (name) {
-			var deck = new SlideCollection();
-			deck.fetch();
+			var self = this;
 			setTimeout(function () {
-				var model = deck.at(0);
+				var model = self.deck.at(0);
 				var view = new SlideView({
 					model : model
 				});
-				$('body').append(view.render().el);
+				$('#main-container').append(view.render().el);
 			}, 2000);
 		}
 	});
-
-	// publicly available methods
-	return {
-		Slide : Slide,
-		SlideView : SlideView,
-		Router : Router,
-		SlideCollection : SlideCollection
-	};
 
 })(jQuery, window);
