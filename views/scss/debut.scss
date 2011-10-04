@@ -63,3 +63,32 @@ section.slide {
 pre, code {
 	font-family: courier;
 }
+
+.fullscreen {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+#loading {
+	width: 100%;
+	height: 100%;
+	margin-top: 25%;
+	text-align: center;
+}
+
+.center {
+	text-align: center;
+}
+
+#test-area {
+	position: fixed;
+	bottom: 20%;
+	left: 10%;
+	width: 80%;
+	height: 200px;
+	* {
+		background-color: #0099FF;
+		opacity: 60%;
+	}
+}

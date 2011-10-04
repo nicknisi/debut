@@ -1,17 +1,28 @@
 [
 	{
-		"name" : "title-slide",
 		"title" : "Backbone.js",
-		"content" : "Backbone Model\n===============\n\nA model is the cornerstone piece in backbone where all data is saved.\nModels can have many attributes and custom methods declared for them. \nThey can know how to read and write to the server via Backbone's `sync` method.\n\n\tvar Slide = Backbone.Model.extend({\n\t\tdefaults : {},\n\t\tinitialize : function (options) {\n\t\t\tthis.parent(options);\n\t\t}\n\t});\n\n* this is a list\n* full of listy goodness\n\t* or badness"
+		"content" : "nick nisi"
 	},
 	{
-		"name" : "sample-slide",
-		"title" : "Sample Slide 02",
-		"content" : "<p>Hello World!</p>"
+		"title" : "What is Backbone.js?"
 	},
 	{
-		"name" : "simple-model",
-		"title" : "Simple Model",
-		"content" : "foo"
+		"title" : "MVC in the Browser"
+	},
+	{
+		"title" : "Backbone MVC",
+		"content" : "* Model\n* View\n* Collection\n* Route"
+	},
+	{
+		"content" : "Backbone Model\n===============\n\nThe model is the fundamental data structure in Backbone.\n\n\tvar Book = Backbone.Model.extend({\n\t\tdefaults : {\n\t\t\ttitle : 'Linux Kernel Development',\n\t\t\tauthor : 'Robert Love',\n\t\t\tpages : 440,\n\t\t\tcurrPage : 1\n\t\t},\n\t\tintialize : function (attributes) {\n\t\t\tconsole.log('new Book initialized: ' + this.get('title'));\n\t\t},\n\t\tgoToPage : function (page) {\n\t\t\tif (page > 0 && page <= this.get('pages')) {\n\t\t\t\tthis.set({\n\t\t\t\t\tcurrPage : page\n\t\t\t\t});\n\t\t\t}\n\t\t\telse {\n\t\t\t\tconsole.info('that page does not exist');\n\t\t\t}\n\t\t}\n\t});"
+	},
+	{
+		"content" : "Backbone View\n==============\n\n\nThe View is responsible for displaying the model data. It generates the html from templates and also handles events.\n\n### Backbone View\n\tvar BookView = Backbone.View.extend({\n\t\tinitialize : function () {\n\t\t\t_.bindAll(this, 'render');\n\t\t\tthis.template = _.template($('#book-template').html());\n\t\t\tthis.model.bind('change', this.render);\n\t\t},\n\t\trender : function () {\n\t\t\tvar renderedContent = this.template(this.model.toJSON());\n\t\t\t$(this.el).html(renderedContent);\n\t\t\treturn this;\n\t\t}\n\t});\n\n### HTML Template\n\n\t<script type=\"text/template\" id=\"book-template\">\n\t\t<div>\n\t\t\t<h2><%= title %></h2>\n\t\t\t<span class=\"author\">Author: <%= author %></span>\n\t\t\t<span class=\"pages\">Length: <%= pages %> pages</span>\n\t\t</div>\n\t</script>"
+	},
+	{
+		"content" : "Backbone Collection\n=====================\n\nA Collection holds and sorts multiple models.\n\n\ts.BookCollection = Backbone.Collection.extend({\n\t\tmodel : s.Book\n\t});"
+	},
+	{
+		"content" : "Backbone Router\n=================\n\nIn Backbone, the Controller is called a Router.\n\n\tvar Router = Backbone.Router.extend({\n\t\troutes : {\n\t\t\t'' : 'home',\n\t\t\t'/foo/:bar' : 'foo'\n\t\t},\n\t\tinitialize : function () {\n\t\t\tconsole.log('router initialized');\n\t\t},\n\t\thome : function () {\n\t\t\tconsole.log('at home route');\n\t\t},\n\t\tfoo : function (bar) {\n\t\t\tconsole.log('at route foo:' + bar);\n\t\t}\n\t});\n\tBackbone.history.start();"
 	}
 ]

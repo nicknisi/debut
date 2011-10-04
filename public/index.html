@@ -10,43 +10,50 @@
 		<script src="javascripts/underscore.js"></script>
 		<script src="javascripts/backbone.js"></script>
 		<script src="javascripts/debut.js"></script>
+		<script src="javascripts/samples.js"></script>
 
 		<script type="text/template" id="slide-template">
-			<section class="slide">
-				<header>
-					<h2><%= title %></h2>
-				</header>
-				<div class="slide-content">
-					<%= content %>
-				</div>
-			</section>
+			<header>
+				<h2><%= title %></h2>
+			</header>
+			<div class="slide-content">
+				<%= content %>
+			</div>
+		</script>
+		<script type="text/template" id="loading-template">
+			<div id="loading">Loading...</div>
+		</script>
+		<script type="text/template" id="book-template">
+			<div>
+				<h2><%= title %></h2>
+				<span class="author">Author: <%= author %></span>
+				<span class="pages">Length: <%= pages %> pages</span>
+			</div>
 		</script>
 	</head>
 	<body>
 		<section id="main-container">
 			<ul id="slides"></ul>
 		</section>
+		<div id="test-area">
+		</div>
 	</body>
 	<script>
 	// initialization
 	$(function () {
-		window.coll = new SlideCollection();
-		coll.fetch();
-		coll.add({
-			title : "Intro Slide",
-			content : "Hello World"
+		var router = new Router();
+		Backbone.history.start();
+		$(document).bind('keyup', function (e) {
+			console.log("key pressed: " + e.which);
+			switch (e.which) {
+				case 37: // left arrow
+				router.prevSlide();
+				break;
+				case 39: // right arrow
+				router.nextSlide();
+				break;
+			}
 		});
-		setTimeout(function () {
-			var m = coll.at(0);
-			m.set({
-				content : converter.makeHtml(m.get('content'))
-			});
-			window.slideView = new SlideView({
-				collection : coll,
-				tagName : 'li'
-			})
-			$('#main-container').append(slideView.render().el);
-		}, 2000);
 	});
 	</script>
 </html>
