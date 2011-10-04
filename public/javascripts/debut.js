@@ -9,13 +9,16 @@
  **/
 
 (function ($, window, undefined) {
+
+	window.converter = new Showdown.converter();
 	
 	// Slide Model
 	window.Slide = Backbone.Model.extend({
 		defaults : {
 			name : 'sample-slide',
 			title : "Sample Title",
-			content : ""
+			content : "",
+			type : "string"
 		},
 		initialize : function (attributes) {
 			console.log('new slide initialized');
@@ -25,10 +28,7 @@
 
 	// Slide View
 	window.SlideView = Backbone.View.extend({
-		events : {
-			'keypress' : "doKeyPress",
-			'click' : "doKeyPress"
-		},
+		events : {},
 		initialize : function () {
 			_.bindAll(this, 'render');
 			this.template = _.template($('#slide-template').html());
@@ -37,54 +37,27 @@
 			var renderedContent = this.template(this.model.toJSON());
 			$(this.el).html(renderedContent);
 			return this;
-		},
-		doKeyPress : function (event) {
-			console.log('key pressed');
 		}
 	});
-
+	
 	window.SlideCollection = Backbone.Collection.extend({
 		model : Slide,
 		url : '/slides'
 	});
-	
-	window.Player = Backbone.Model.extend({
-		defaults : {
-			index : 0
-		},
-		initialize : function () {
-			this.currSlide = new Slide();
-			this.slides = new SlideCollection();
-			this.slides.fetch();
-		}
-	});
 
-	window.Router = Backbone.Router.extend({
-		routes : {
-			"" : "home",
-			"/foo" : "foo",
-			"/slide/:name" : "slide"
+	window.Debut = Backbone.Model.extend({
+		defaults : {
+			slideIndex : 0
 		},
-		initialize : function () {
+		initialize : function (attrs) {
 			this.deck = new SlideCollection();
 			this.deck.fetch();
 		},
-		home : function () {
-			this.navigate('/slide/0', true);
+		reset : function () {
+			this.set({ slideIndex : 0 });
 		},
-		foo : function () {
-			console.log("You got to foo!");
-		},
-		slide : function (name) {
-			var self = this;
-			setTimeout(function () {
-				var model = self.deck.at(0);
-				var view = new SlideView({
-					model : model
-				});
-				$('#main-container').append(view.render().el);
-			}, 2000);
-		}
+		prevSlide : function () {},
+		nextSlide : function () {}
 	});
 
 })(jQuery, window);

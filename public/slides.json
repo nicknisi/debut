@@ -2,11 +2,16 @@
 	{
 		"name" : "title-slide",
 		"title" : "Backbone.js",
-		"content" : "<p>Welcome to my simple introduction to backbone.js</p>"
+		"content" : "Backbone Model\n===============\n\nA model is the cornerstone piece in backbone where all data is saved.\nModels can have many attributes and custom methods declared for them. \nThey can know how to read and write to the server via Backbone's `sync` method.\n\n\tvar Slide = Backbone.Model.extend({\n\t\tdefaults : {},\n\t\tinitialize : function (options) {\n\t\t\tthis.parent(options);\n\t\t}\n\t});\n\n* this is a list\n* full of listy goodness\n\t* or badness"
 	},
 	{
 		"name" : "sample-slide",
 		"title" : "Sample Slide 02",
 		"content" : "<p>Hello World!</p>"
+	},
+	{
+		"name" : "simple-model",
+		"title" : "Simple Model",
+		"content" : "foo"
 	}
 ]
